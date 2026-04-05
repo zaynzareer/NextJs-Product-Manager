@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 
+// Product type
 type Product = {
   name: string;
   price: number;
@@ -9,6 +10,7 @@ type Product = {
   image?: string;
 };
 
+// Form values type
 type ProductFormValues = {
   name: string;
   price: string;
@@ -16,11 +18,13 @@ type ProductFormValues = {
   image: string;
 };
 
+// Props for the ProductForm component
 type ProductFormProps = {
   onSubmit: (product: Product) => void;
   editingProduct: Product | null;
 };
 
+// Initial form values for resetting the form
 const initialFormValues: ProductFormValues = {
   name: "",
   price: "",
@@ -28,6 +32,7 @@ const initialFormValues: ProductFormValues = {
   image: "",
 };
 
+// ProductForm component for adding and editing products
 export default function ProductForm({ onSubmit, editingProduct }: ProductFormProps) {
   const [form, setForm] = useState<ProductFormValues>({
     name: "",
@@ -36,6 +41,7 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
     image: "",
   });
 
+  // Update form values when editingProduct changes
   useEffect(() => {
     if (editingProduct) {
       setForm({
@@ -49,6 +55,7 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
     }
   }, [editingProduct]);
 
+  // Handle form submission for adding or updating a product
   const handleSubmit = () => {
     if (!form.name || !form.price) {
       alert("Name and price are required");

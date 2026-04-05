@@ -1,5 +1,6 @@
 "use client";
 
+// Product type
 type Product = {
   name: string;
   price: number;
@@ -7,12 +8,14 @@ type Product = {
   image?: string;
 };
 
+// Props for the ProductList component
 type ProductListProps = {
   products: Product[];
   onEdit: (index: number) => void;
   onDelete: (index: number) => void;
 };
 
+// ProductList component for displaying the list of products with edit and delete options
 export default function ProductList({
   products,
   onEdit,

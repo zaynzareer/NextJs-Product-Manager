@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ProductForm from "../components/ProductForm";
 import ProductList from "../components/ProductList";
 
+// Product type
 type Product = {
   name: string;
   price: number;
@@ -11,7 +12,9 @@ type Product = {
   image?: string;
 };
 
+// Main component
 export default function Home() {
+  // State definitons
   const [products, setProducts] = useState<Product[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [search, setSearch] = useState("");
@@ -27,6 +30,7 @@ export default function Home() {
     localStorage.setItem("products", JSON.stringify(products));
   }, [products]);
 
+  // Add or update product
   const addOrUpdateProduct = (product: Product) => {
     if (editingIndex !== null) {
       const updated = [...products];
@@ -38,15 +42,18 @@ export default function Home() {
     }
   };
 
+  // Edit product
   const handleEdit = (index: number) => {
     setEditingIndex(index);
   };
 
+  // Delete product
   const handleDelete = (index: number) => {
     const updated = products.filter((_, i) => i !== index);
     setProducts(updated);
   };
 
+  // Filter products based on the search query
   const filteredProducts = products.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
