@@ -94,7 +94,7 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
     reader.onload = () => {
       const result = reader.result;
       if (typeof result === "string") {
-        setForm((prev) => ({ ...prev, image: result }));
+        setForm((prevForm) => ({ ...prevForm, image: result }));
       }
     };
     reader.readAsDataURL(file);
