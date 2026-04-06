@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { Toaster } from "sonner";
 import ProductForm from "../components/ProductForm";
 import ProductList from "../components/ProductList";
 
@@ -49,8 +51,10 @@ export default function Home() {
 
   // Delete product
   const handleDelete = (index: number) => {
+    const deleted = products[index];
     const updated = products.filter((_, i) => i !== index);
     setProducts(updated);
+    toast.success(`${deleted.name} deleted successfully!`);
   };
 
   // Filter products based on the search query
@@ -60,6 +64,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-sky-50 via-blue-100 to-indigo-200 p-4 sm:p-6 lg:p-10">
+      <Toaster position="top-right" richColors />
       <div className="mx-auto max-w-5xl">
         <div className="mb-6 rounded-3xl border border-blue-200/70 bg-white/80 p-6 shadow-xl shadow-blue-200/40 backdrop-blur sm:p-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

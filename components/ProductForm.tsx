@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner"
 
 // Product type
 type Product = {
@@ -62,10 +63,11 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
   // Handle form submission for adding or updating a product
   const handleSubmit = () => {
     if (!form.name || !form.price) {
-      alert("Name and price are required");
+      toast.error("Name and price are required");
       return;
     }
 
+    const isUpdate = editingProduct !== null;
     onSubmit({
       name: form.name,
       price: Number(form.price),
@@ -73,6 +75,12 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
       image: form.image || undefined,
     });
     setForm(initialFormValues);
+    
+    if (isUpdate) {
+      toast.success("Product updated successfully!");
+    } else {
+      toast.success("Product added successfully!");
+    }
   };
 
   // Handle image file upload and store as a string value

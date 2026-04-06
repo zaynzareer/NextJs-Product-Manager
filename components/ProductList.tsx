@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -55,13 +56,18 @@ export default function ProductList({
 
           <div className="flex shrink-0 flex-col gap-2">
             <Button
-              onClick={() => onEdit(index)}
+              onClick={() => {
+                onEdit(index);
+                toast.info(`Editing "${p.name}"`, { duration: 2000 });
+              }}
               className="rounded-lg border border-blue-200 bg-blue-50 px-3 text-blue-800 hover:bg-blue-100"
             >
               Edit
             </Button>
             <Button
-              onClick={() => onDelete(index)}
+              onClick={() => {
+                onDelete(index);
+              }}
               className="rounded-lg bg-blue-600 px-3 text-white hover:bg-blue-700"
             >
               Delete
