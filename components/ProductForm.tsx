@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from "react";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 // Product type
 type Product = {
   name: string;
@@ -72,44 +76,66 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
   };
 
   return (
-    <div className="bg-white p-4 rounded shadow mb-6 space-y-3">
+    <div className="mb-6 rounded-3xl border border-blue-200/70 bg-white/90 p-5 shadow-lg shadow-blue-200/40 backdrop-blur sm:p-6">
+      <div className="mb-4">
+        <h2 className="text-xl font-semibold text-slate-900">
+          {editingProduct ? "Edit Product" : "Add New Product"}
+        </h2>
+        <p className="mt-1 text-sm text-slate-600">
+          Fill in the details below
+        </p>
+      </div>
 
-      <input
-        className="w-full border p-2"
-        placeholder="Product Name"
-        value={form.name}
-        onChange={(e) => setForm({ ...form, name: e.target.value })}
-      />
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-blue-900">Product Name</label>
+          <Input
+            className="border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
+            placeholder="Wireless Headphones"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+        </div>
 
-      <input
-        className="w-full border p-2"
-        placeholder="Price"
-        value={form.price}
-        onChange={(e) => setForm({ ...form, price: e.target.value })}
-      />
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-blue-900">Price</label>
+          <Input
+            className="border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
+            placeholder="129.99"
+            value={form.price}
+            onChange={(e) => setForm({ ...form, price: e.target.value })}
+          />
+        </div>
 
-      <textarea
-        className="w-full border p-2"
-        placeholder="Description"
-        value={form.description}
-        onChange={(e) =>
-          setForm({ ...form, description: e.target.value })
-        }
-      />
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-blue-900">Description</label>
+          <Textarea
+            className="min-h-24 border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
+            placeholder="Comfortable over-ear design with active noise canceling."
+            value={form.description}
+            onChange={(e) =>
+              setForm({ ...form, description: e.target.value })
+            }
+          />
+        </div>
 
-      <input
-        className="w-full border p-2"
-        placeholder="Image URL (optional)"
-        value={form.image}
-        onChange={(e) => setForm({ ...form, image: e.target.value })}
-      />
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-blue-900">Image URL</label>
+          <Input
+            className="border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
+            placeholder="https://example.com/product-image.jpg"
+            value={form.image}
+            onChange={(e) => setForm({ ...form, image: e.target.value })}
+          />
+        </div>
 
-      <button
-        onClick={handleSubmit}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        {editingProduct ? "Update Product" : "Add Product"}
-      </button>
+        <Button
+          onClick={handleSubmit}
+          className="h-11 w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-blue-300 transition hover:from-blue-700 hover:to-cyan-600"
+        >
+          {editingProduct ? "Update Product" : "Add Product"}
+        </Button>
+      </div>
     </div>
   );
 }
