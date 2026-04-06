@@ -75,6 +75,23 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
     setForm(initialFormValues);
   };
 
+  // Handle image file upload and store as a string value
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      if (typeof result === "string") {
+        setForm((prev) => ({ ...prev, image: result }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className="mb-6 rounded-3xl border border-blue-200/70 bg-white/90 p-5 shadow-lg shadow-blue-200/40 backdrop-blur sm:p-6">
       <div className="mb-4">
@@ -91,7 +108,7 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
           <label className="text-sm font-medium text-blue-900">Product Name</label>
           <Input
             className="border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
-            placeholder="Wireless Headphones"
+            placeholder="Enter product name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
@@ -101,7 +118,7 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
           <label className="text-sm font-medium text-blue-900">Price</label>
           <Input
             className="border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
-            placeholder="129.99"
+            placeholder="Enter price"
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
           />
@@ -111,7 +128,7 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
           <label className="text-sm font-medium text-blue-900">Description</label>
           <Textarea
             className="min-h-24 border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
-            placeholder="Comfortable over-ear design with active noise canceling."
+            placeholder="Enter product description"
             value={form.description}
             onChange={(e) =>
               setForm({ ...form, description: e.target.value })
@@ -123,9 +140,19 @@ export default function ProductForm({ onSubmit, editingProduct }: ProductFormPro
           <label className="text-sm font-medium text-blue-900">Image URL</label>
           <Input
             className="border-blue-200 bg-white text-slate-900 placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-blue-300"
-            placeholder="https://example.com/product-image.jpg"
+            placeholder="Enter image URL"
             value={form.image}
             onChange={(e) => setForm({ ...form, image: e.target.value })}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm font-medium text-blue-900">Upload Image</label>
+          <Input
+            className="cursor-pointer border-blue-200 bg-white text-slate-700 file:mr-3 file:rounded-md file:border-0 file:bg-blue-100 file:px-3 file:py-2 file:text-sm file:font-medium file:text-blue-700 hover:file:bg-blue-200"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
           />
         </div>
 
