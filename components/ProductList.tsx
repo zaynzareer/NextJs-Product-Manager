@@ -1,5 +1,8 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
 // Product type
 type Product = {
   name: string;
@@ -22,44 +25,49 @@ export default function ProductList({
   onDelete,
 }: ProductListProps) {
   if (products.length === 0) {
-    return <p className="text-center text-gray-500">No products found</p>;
+    return (
+      <Card className="rounded-3xl border-dashed border-blue-300 bg-white/80 p-8 text-center shadow-sm">
+        <p className="text-lg font-medium text-slate-700">No products found</p>
+        <p className="mt-1 text-sm text-slate-500">Add your first item to get started.</p>
+      </Card>
+    );
   }
 
   return (
-    <div className="grid md:grid-cols-2 gap-4">
+    <div className="grid gap-4 md:grid-cols-2">
       {products.map((p, index) => (
-        <div
+        <Card
           key={index}
-          className="bg-white p-4 rounded shadow flex justify-between"
+          className="flex h-full justify-between gap-4 rounded-2xl border-blue-200 bg-white/90 p-5 shadow-md shadow-blue-200/30 transition hover:-translate-y-0.5 hover:shadow-lg"
         >
-          <div>
+          <div className="min-w-0 flex-1">
             {p.image && (
               <img
                 src={p.image}
                 alt={p.name}
-                className="w-20 h-20 object-cover mb-2"
+                className="mb-3 h-24 w-full rounded-xl border border-blue-100 object-cover"
               />
             )}
-            <h2 className="font-bold text-lg">{p.name}</h2>
-            <p className="text-green-600">${p.price}</p>
-            <p className="text-sm text-gray-600">{p.description}</p>
+            <h2 className="truncate text-lg font-bold text-slate-900">{p.name}</h2>
+            <p className="mt-1 text-base font-semibold text-blue-700">${p.price.toFixed(2)}</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">{p.description}</p>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <button
+          <div className="flex shrink-0 flex-col gap-2">
+            <Button
               onClick={() => onEdit(index)}
-              className="bg-yellow-400 px-2 py-1 rounded"
+              className="rounded-lg border border-blue-200 bg-blue-50 px-3 text-blue-800 hover:bg-blue-100"
             >
               Edit
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => onDelete(index)}
-              className="bg-red-500 text-white px-2 py-1 rounded"
+              className="rounded-lg bg-blue-600 px-3 text-white hover:bg-blue-700"
             >
               Delete
-            </button>
+            </Button>
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   );
